@@ -45,3 +45,50 @@ teste = Teste()
 
 teste.b = 12
 print(teste.__data)
+
+
+tokens = [
+    "ID",  # identificador
+    # numerais
+    "NUM_NOTACAO_CIENTIFICA",  # ponto flutuante em notaçao científica
+    "NUM_PONTO_FLUTUANTE",  # ponto flutuate
+    "NUM_INTEIRO",  # inteiro
+    # operadores binarios
+    "ADICAO",  # +
+    "SUBTRACAO",  # -
+    "MULTIPLICACAO",  # *
+    "DIVISAO",  # /
+    "E_LOGICO",  # &&
+    "OU_LOGICO",  # ||
+    "DIFERENCA",  # <>
+    "MENOR_IGUAL",  # <=
+    "MAIOR_IGUAL",  # >=
+    "MENOR",  # <
+    "MAIOR",  # >
+    "IGUALDADE",  # =
+    # operadores unarios
+    "NEGACAO",  # !
+    # simbolos
+    "ABRE_PAR",  # (
+    "FECHA_PAR",  # )
+    "ABRE_COL",  # [
+    "FECHA_COL",  # ]
+    "VIRGULA",  # ,
+    "DOIS_PONTOS",  # :
+    "ATRIBUICAO",  # :=
+    # 'COMENTARIO', # {***}
+]
+
+palavras_reservadas = {
+    "se": "SE",
+    "então": "ENTAO",
+    "senão": "SENAO",
+    "fim": "FIM",
+    "repita": "REPITA",
+    "flutuante": "FLUTUANTE",
+    "retorna": "RETORNA",
+    "até": "ATE",
+    "leia": "LEIA",
+    "escreva": "ESCREVA",
+    "inteiro": "INTEIRO",
+}

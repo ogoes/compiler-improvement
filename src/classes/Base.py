@@ -37,7 +37,6 @@ class Base:
         self.params_types = data.get('params_types') or []
         self.rtype = data.get('return_type') or 'vazio'
 
-
         self.__reduced = False
 
     def __repr__(self):
@@ -65,6 +64,12 @@ class Base:
 
     def __str__(self):
         return f"{self.type}:{self.identifier}"
+
+    def __int__(self):
+        return int(self.value)
+
+    def __float__(self):
+        return float(self.value)
 
     def __set__(name):
         def _set(self, value):
@@ -94,10 +99,10 @@ class Base:
     def insert_node_below(self, node):
         if type(node) is list:
             for node_adj in node:
-                node_adj.set_scope(self.__scope)
+                node_adj.scope = self.__scope
                 self.insert_node_below(node_adj)
         else:
-            self.__above.append(node)
+            self.children = self.children + [node]
         pass
 
     def is_variable(self):
@@ -106,34 +111,40 @@ class Base:
     def is_function(self):
         return self.callable or False
 
-    def reduce(self):
+    def reduce(self, debug=False):
         pass
-    def semantic_a(self):
+
+    def semantic_a(self, debug=False):
         pass
-    def generator(self, builder):
+
+    def generator(self, builder, debug=False):
         pass
 
     type = property(__get__('type'), __set__('type'), __del__('type'))
-    
+
     scope = property(__get__('scope'), __set__('scope'), __del__('scope'))
-    
+
     operation = property(__get__('operation'), __set__(
         'operation'), __del__('operation'))
-    
+
     visible_scopes = property(__get__('visible_scopes'), __set__(
         'visible_scopes'), __del__('visible_scopes'))
-    
+
     dimentions = property(__get__('dimentions'), __set__(
         'dimentions'), __del__('dimentions'))
-    
+
     rtype = property(__get__('return_type'), __set__(
         'return_type'), __del__('return_type'))
-    
+
     id = property(__get__('identifier'), __set__(
         'identifier'), __del__('identifier'))
-    
+
     children = property(__get__('children'), __set__(
         'children'), __del__('children'))
-    
+
     params_types = property(__get__('params_types'), __set__(
         'params_types'), __del__('params_types'))
+
+    value = property(__get__('value'), __set__('value'), __del__('value'))
+
+    intable = property(__get__('table'), __set__('table'), __del__('table'))
