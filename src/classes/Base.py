@@ -24,11 +24,11 @@ class Base:
         """
 
         if not data.get('type'):
-            raise "Tipo não especificado"
-        if not data.get('type'):
-            raise "Operação não especificada"
-        if not data.get('type'):
-            raise "Identificador não especificado"
+            raise Exception("Tipo não especificado")
+        if not data.get('operation'):
+            raise Exception("Operação não especificada")
+        if not data.get('identifier'):
+            raise Exception("Identificador não especificado")
 
         self.__data = data
         self.visible_scopes = data.get('visible_scopes') or []
@@ -40,7 +40,7 @@ class Base:
         self.__reduced = False
 
     def __repr__(self):
-        representation = f"{self.type}:{self.identifier}"
+        representation = f"{self.type}:{self.id}"
         if self.callable:
             representation += "  --> FUNCTION"
         elif self.variable:
@@ -63,7 +63,7 @@ class Base:
             representation += f"\n\PARAMS: {str([item.get('type') for item in self.params_types])}"
 
     def __str__(self):
-        return f"{self.type}:{self.identifier}"
+        return f"{self.type}:{self.id}"
 
     def __int__(self):
         return int(self.value)
