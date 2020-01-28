@@ -4,6 +4,8 @@ class Base:
     """
     """
 
+    __id = 0
+
     def __init__(self, data: dict = None):
         """
             Constructor --
@@ -22,11 +24,7 @@ class Base:
                 }
 
         """
-
-        if not data.get('type'):
-            raise Exception("Tipo não especificado")
-        if not data.get('operation'):
-            raise Exception("Operação não especificada")
+        
         if not data.get('identifier'):
             raise Exception("Identificador não especificado")
 
@@ -38,24 +36,27 @@ class Base:
         self.rtype = data.get('return_type') or 'vazio'
 
         self.__reduced = False
+        self.__data['id'] = Base.__id
+        Base.__id += 1
+        
 
     def __repr__(self):
         representation = f"{self.type}:{self.id}"
-        if self.callable:
+        if self.is_function():
             representation += "  --> FUNCTION"
-        elif self.variable:
+        elif self.is_variable():
             representation += "  --> VARIABLE"
 
         if self.scope:
-            representation += f"\n\tSCOPE: {str(self.scope)}"
+            representation += f"\n\tSCOPE: {self.scope}"
         if self.operation:
             representation += f"\n\tOPERATION: {self.operation}"
         if self.visible_scopes:
             representation += f"\n\tVISIBLE_SCOPES: {str(self.type)}"
         if self.dimentions:
             representation += f"\n\tDIMENTIONS: {str([item.get('size') for item in self.dimentions])}"
-        if self.return_type:
-            representation += f"\n\tRETURN_TYPE: {self.return_type}"
+        if self.rtype:
+            representation += f"\n\tRETURN_TYPE: {self.rtype}"
 
         representation += f"\n\tCHILDREN: {[str(item) for item in self.children]}"
 
@@ -88,6 +89,8 @@ class Base:
 
     def __get__(name):
         def _get(self):
+            if name == 'return_type' and self.__data.get(name) == None:
+                return self.__type__()
             return self.__data.get(name)
         return _get
 
@@ -96,20 +99,25 @@ class Base:
             del self.__data[name]
         return _del
 
+    def __type__(self):
+        self.__data['return_type'] = 'vazio'
+        return 'vazio'
+
+
     def insert_node_below(self, node):
         if type(node) is list:
             for node_adj in node:
-                node_adj.scope = self.__scope
+                node_adj.scope = self.scope
                 self.insert_node_below(node_adj)
         else:
             self.children = self.children + [node]
         pass
 
     def is_variable(self):
-        return self.variable or False
+        return self.__data.get('variable') or False
 
     def is_function(self):
-        return self.callable or False
+        return self.__data.get('callable') or False
 
     def reduce(self, debug=False):
         pass
@@ -136,8 +144,7 @@ class Base:
     rtype = property(__get__('return_type'), __set__(
         'return_type'), __del__('return_type'))
 
-    id = property(__get__('identifier'), __set__(
-        'identifier'), __del__('identifier'))
+    id = property(__get__('identifier'))
 
     children = property(__get__('children'), __set__(
         'children'), __del__('children'))

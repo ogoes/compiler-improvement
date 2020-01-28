@@ -14,6 +14,7 @@ from classes.ExpressaoMultiplicativa import ExpressaoMultiplicativa
 from classes.ExpressaoSimples import ExpressaoSimples
 from classes.ExpressaoUnaria import ExpressaoUnaria
 from classes.Fator import Fator
+from classes.Id import Id
 from classes.Indice import Indice
 from classes.InicializacaoDeVariaveis import InicializacaoDeVariaveis
 from classes.Leia import Leia
@@ -22,15 +23,12 @@ from classes.ListaDeDeclaracoes import ListaDeDeclaracoes
 from classes.ListaDeParametros import ListaDeParametros
 from classes.ListaDeVariaveis import ListaDeVariaveis
 from classes.Numero import Numero
-from classes.OperadorLogico import OperadorLogico
-from classes.OperadorMultiplicacao import OperadorMultiplicacao
-from classes.OperadorNegacao import OperadorNegacao
-from classes.OperadorRelacional import OperadorRelacional
-from classes.OperadorSoma import OperadorSoma
 from classes.Parametro import Parametro
 from classes.Programa import Programa
 from classes.Repita import Repita
 from classes.Retorna import Retorna
 from classes.Se import Se
 from classes.Tipo import Tipo
+from classes.Token import Token
 from classes.Variavel import Variavel
+from classes.Vazio import Vazio
