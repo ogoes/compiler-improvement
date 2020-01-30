@@ -1,0 +1,3 @@
+from classes.declarations.Declaracao import Declaracao
+from classes.declarations.DeclaracaoDeFuncao import DeclaracaoDeFuncao
+from classes.declarations.DeclaracaoDeVariaveis import DeclaracaoDeVariaveis

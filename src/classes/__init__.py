@@ -1,33 +1,17 @@
+from classes.lists import ListaDeArgumentos, ListaDeDeclaracoes, ListaDeParametros, ListaDeVariaveis
+from classes.declarations import Declaracao, DeclaracaoDeFuncao, DeclaracaoDeVariaveis
+from classes.operators import OperadorAditivo, OperadorLogico, OperadorMultiplicativo, OperadorRelacional, Negacao
+from classes.structures import Atribuicao, Cabecalho, Escreva, Indice, InicializacaoDeVariaveis, Leia, Repita, Retorna, Se
+from classes.expressions import Expressao, ExpressaoAditiva, ExpressaoLogica, ExpressaoMultiplicativa, ExpressaoSimples, ExpressaoUnaria
+
 from classes.Acao import Acao
-from classes.Atribuicao import Atribuicao
-from classes.Cabecalho import Cabecalho
 from classes.ChamadaDeFuncao import ChamadaDeFuncao
 from classes.Corpo import Corpo
-from classes.Declaracao import Declaracao
-from classes.DeclaracaoDeFuncao import DeclaracaoDeFuncao
-from classes.DeclaracaoDeVariaveis import DeclaracaoDeVariaveis
-from classes.Escreva import Escreva
-from classes.Expressao import Expressao
-from classes.ExpressaoAditiva import ExpressaoAditiva
-from classes.ExpressaoLogica import ExpressaoLogica
-from classes.ExpressaoMultiplicativa import ExpressaoMultiplicativa
-from classes.ExpressaoSimples import ExpressaoSimples
-from classes.ExpressaoUnaria import ExpressaoUnaria
 from classes.Fator import Fator
 from classes.Id import Id
-from classes.Indice import Indice
-from classes.InicializacaoDeVariaveis import InicializacaoDeVariaveis
-from classes.Leia import Leia
-from classes.ListaDeArgumentos import ListaDeArgumentos
-from classes.ListaDeDeclaracoes import ListaDeDeclaracoes
-from classes.ListaDeParametros import ListaDeParametros
-from classes.ListaDeVariaveis import ListaDeVariaveis
 from classes.Numero import Numero
 from classes.Parametro import Parametro
 from classes.Programa import Programa
-from classes.Repita import Repita
-from classes.Retorna import Retorna
-from classes.Se import Se
 from classes.Tipo import Tipo
 from classes.Token import Token
 from classes.Variavel import Variavel

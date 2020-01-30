@@ -3,14 +3,12 @@ from utils import Scope
 from pprint import pprint
 import re
 
-from lexer.rules import inteiro, flutuante, notacao_cientifica
+from lexer import inteiro, flutuante, notacao_cientifica
+from lexer import tokens
 import ply.yacc as yacc
 
 from classes import *
 from classes.Base import Base
-
-from classes.operators import OperadorAditivo, OperadorLogico, OperadorMultiplicativo, OperadorRelacional, Negacao
-
 
 debug = False
 
@@ -102,7 +100,8 @@ def p_lista_variaveis(production):
     first_node_name = production[1].id
 
     if first_node_name == "LISTA_VARIAVEIS":
-        node.insert_node_below(production[1].children)
+        node.insert_node_below([item for item in production[1].children if not isinstance(
+            item, Vazio) and len(production[1].children) > 1])
 
         node.insert_node_below(Token(identifier=','))
 
@@ -142,7 +141,8 @@ def p_indice(production):
     col_index = 1
 
     if production_length == 5:
-        node.insert_node_below(production[col_index].children)
+        node.insert_node_below([item for item in production[col_index].children if not isinstance(
+            item, Vazio) and len(production[col_index].children) > 1])
         col_index += 1
 
     node.insert_node_below(Token(identifier='['))
@@ -314,7 +314,7 @@ def p_cabecalho(production):
 
     scope = Scope()
 
-    scope.id = production[1]
+    scope.name = production[1]
     scope.begin = {
         "line": production.linespan(1)[1],
         "column": define_column(parser.filedata, production.lexspan(1)[1])
@@ -345,7 +345,8 @@ def p_lista_parametros(production):
 
     first_node_name = production[1].id
     if first_node_name == "LISTA_PARAMETROS":
-        node.insert_node_below(production[1].children)
+        node.insert_node_below([item for item in production[1].children if not isinstance(
+            item, Vazio) and len(production[1].children) > 1])
         node.insert_node_below(production[3])
 
     else:
@@ -440,7 +441,8 @@ def p_corpo(production):
     first_name = production[1].id
 
     if first_name == "CORPO":
-        node.insert_node_below(production[1].children)
+        node.insert_node_below([item for item in production[1].children if not isinstance(
+            item, Vazio) and len(production[1].children) > 1])
         node.insert_node_below(production[2])
     else:
         node.insert_node_below(production[1])
@@ -967,7 +969,7 @@ def p_chamada_funcao(production):
     node.insert_node_below(Id(identifier=production[1]))
     node.insert_node_below(Token(identifier=production[2]))
     node.insert_node_below(production[3])
-    node.insert_node_below(Token(identifier=production[3]))
+    node.insert_node_below(Token(identifier=production[4]))
 
     production[0] = node
 
@@ -983,7 +985,8 @@ def p_lista_argumentos(production):
     first_name = production[1].id
 
     if first_name == "LISTA_ARGUMENTOS":
-        node.insert_node_below(production[1].children)
+        node.insert_node_below([item for item in production[1].children if not isinstance(
+            item, Vazio) and len(production[1].children) > 1])
         node.insert_node_below(Token(identifier=','))
         node.insert_node_below(production[3])
     else:
@@ -1022,4 +1025,4 @@ def p_error(production):
     pass
 
 
-parser = yacc.yacc(start="programa")
+parser = yacc.yacc(start='programa')

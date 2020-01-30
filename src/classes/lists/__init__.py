@@ -1,0 +1,4 @@
+from classes.lists.ListaDeArgumentos import ListaDeArgumentos
+from classes.lists.ListaDeDeclaracoes import ListaDeDeclaracoes
+from classes.lists.ListaDeParametros import ListaDeParametros
+from classes.lists.ListaDeVariaveis import ListaDeVariaveis

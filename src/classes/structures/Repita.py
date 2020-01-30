@@ -1,9 +1,10 @@
 from classes.Base import Base
 
 
-class Se(Base):
+class Repita(Base):
 
     def __init__(self, **data):
-        data['identifier'] = 'SE'
+        data['identifier'] = 'REPITA'
         
         super().__init__(data)
+

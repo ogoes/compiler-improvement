@@ -1,10 +1,11 @@
 
-
+from graphviz import Graph
 class Base:
     """
     """
 
     __id = 0
+    __digraph = Graph()
 
     def __init__(self, data: dict = None):
         """
@@ -25,6 +26,10 @@ class Base:
 
         """
         
+
+
+
+
         if not data.get('identifier'):
             raise Exception("Identificador não especificado")
 
@@ -36,35 +41,40 @@ class Base:
         self.rtype = data.get('return_type') or 'vazio'
 
         self.__reduced = False
-        self.__data['id'] = Base.__id
+        self.__data['id'] = str(Base.__id)
+
         Base.__id += 1
         
 
     def __repr__(self):
-        representation = f"{self.type}:{self.id}"
-        if self.is_function():
-            representation += "  --> FUNCTION"
-        elif self.is_variable():
-            representation += "  --> VARIABLE"
+        return f"{self.id}"
 
-        if self.scope:
-            representation += f"\n\tSCOPE: {self.scope}"
-        if self.operation:
-            representation += f"\n\tOPERATION: {self.operation}"
-        if self.visible_scopes:
-            representation += f"\n\tVISIBLE_SCOPES: {str(self.type)}"
-        if self.dimentions:
-            representation += f"\n\tDIMENTIONS: {str([item.get('size') for item in self.dimentions])}"
-        if self.rtype:
-            representation += f"\n\tRETURN_TYPE: {self.rtype}"
+        # representation = f"{self.id}"
+        # if self.is_function():
+        #     representation += "  --> FUNCTION"
+        # elif self.is_variable():
+        #     representation += "  --> VARIABLE"
 
-        representation += f"\n\tCHILDREN: {[str(item) for item in self.children]}"
+        # if self.scope:
+        #     representation += f"\n\tSCOPE: {self.scope}"
+        # if self.operation:
+        #     representation += f"\n\tOPERATION: {self.operation}"
+        # if self.visible_scopes:
+        #     representation += f"\n\tVISIBLE_SCOPES: {str(self.type)}"
+        # if self.dimentions:
+        #     representation += f"\n\tDIMENTIONS: {str([item.get('size') for item in self.dimentions])}"
+        # if self.rtype:
+        #     representation += f"\n\tRETURN_TYPE: {self.rtype}"
 
-        if self.params_types:
-            representation += f"\n\PARAMS: {str([item.get('type') for item in self.params_types])}"
+        # representation += f"\n\tCHILDREN: {[str(item) for item in self.children]}"
+
+        # if self.params_types:
+        #     representation += f"\n\PARAMS: {str([item.get('type') for item in self.params_types])}"
+
+        # return representation
 
     def __str__(self):
-        return f"{self.type}:{self.id}"
+        return f"{self.id}"
 
     def __int__(self):
         return int(self.value)
@@ -119,6 +129,18 @@ class Base:
     def is_function(self):
         return self.__data.get('callable') or False
 
+    def graphic_repr(self, graph=None):
+        if not graph:
+            graph = Base.__digraph
+
+        graph.node(self.graph_id, self.id)
+
+        for adj in self.children:
+            adj.graphic_repr(graph)
+            graph.edge(self.graph_id, adj.graph_id, constraint='true')
+
+        return graph
+
     def reduce(self, debug=False):
         pass
 
@@ -146,6 +168,8 @@ class Base:
 
     id = property(__get__('identifier'))
 
+    graph_id = property(__get__('id'))
+
     children = property(__get__('children'), __set__(
         'children'), __del__('children'))
 
@@ -155,3 +179,4 @@ class Base:
     value = property(__get__('value'), __set__('value'), __del__('value'))
 
     intable = property(__get__('table'), __set__('table'), __del__('table'))
+

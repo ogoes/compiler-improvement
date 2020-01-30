@@ -1,4 +1,8 @@
 from ply.lex import TOKEN
+import ply.lex as lex
+
+import messages.Errors as Errors
+import messages
 
 # Aqui estao contidas todas regras lexicas
 
@@ -228,18 +232,24 @@ def t_newline(token):
     r"\n+"
     token.lexer.lineno += len(token.value)
 
+
 def define_column(input, lexpos):
     begin_line = input.rfind("\n", 0, lexpos) + 1
     return (lexpos - begin_line) + 1
 
+
 def t_error(token):
 
-    col = define_column(token.lexer.backup_data, token.lexpos)
-    print(
-        "{file}:{line}:{col}: UNKNOWN_SYMBOL : símbolo não reconhecido pela linguagem '{value}'".format(
-            file=token.lexer.filename, line=token.lineno, col=col, value=token.value
-        )
-    )
+    messages.filename = token.lexer.filename
+
+    Errors.UnknownSymbol(token.value.split()[0], {
+        'line': token.lineno,
+        'column': define_column(token.lexer.backup_data, token.lexpos)
+    })
+
     token.lexer.skip(1)
 
     token.lexer.has_error = True
+
+
+lexer = lex.lex()

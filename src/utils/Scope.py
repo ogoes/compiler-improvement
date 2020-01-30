@@ -52,13 +52,3 @@ class Scope:
     begin = property(__get__('begin'), __set__('begin'))
     ending = property(__get__('ending'), __set__('ending'))
 
-
-scope = Scope()
-scope.begin = {'line': 1, 'column': 2}
-scope.ending = {'line': 1, 'column': 2}
-
-scopes = [scope] + Scope() * 4
-
-
-if scope in scopes[::-1]:
-    print(scope)

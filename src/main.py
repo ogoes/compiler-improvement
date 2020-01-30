@@ -1,8 +1,7 @@
-from classes import Programa
 
+from ply import lex
 
-P = Programa({"type": 'PROGRAMA', 'operation': 'PROGRAMA',
-              'identifier': ''})
+import lexer.rules as rules
 
+lexer = lex.lex(module=rules)
 
-print(type(P))

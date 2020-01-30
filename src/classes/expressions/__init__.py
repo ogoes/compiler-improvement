@@ -1,0 +1,6 @@
+from classes.expressions.Expressao import Expressao
+from classes.expressions.ExpressaoAditiva import ExpressaoAditiva
+from classes.expressions.ExpressaoLogica import ExpressaoLogica
+from classes.expressions.ExpressaoMultiplicativa import ExpressaoMultiplicativa
+from classes.expressions.ExpressaoSimples import ExpressaoSimples
+from classes.expressions.ExpressaoUnaria import ExpressaoUnaria
